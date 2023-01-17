@@ -13,8 +13,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post("/message", async (req, res) => {
-    const response = await openai.createCompletion({
+app.post("/message", (req, res) => {
+    const response = openai.createCompletion({
         model: "text-davinci-003",
         prompt: req.body.prompt,
         temperature: 0,
