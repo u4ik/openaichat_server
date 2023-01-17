@@ -28,7 +28,21 @@ app.post("/message", (req, res) => {
         res.send({ message: data.data.choices[0].text })
     })
 })
+app.post("/image", async (req, res) => {
+    const response = await openai.createImage({
+        prompt: req.body.prompt,
+        n: 10,
+        size: "1024x1024"
+        // temperature: 0,
+        // top_p: 1,
+        // frequency_penalty: 0,
+        // presence_penalty: 0,
+        // max_tokens: 1024
+    })
+    // console.log(response.data.data[0].url);
+    res.status(200).json({ message: response.data.data })
+})
 
 app.listen(process.env.PORT, () => {
-    console.log(`App is spinning on port ${process.env.PORT}`)
+    // console.log(`App is spinning on port ${process.env.PORT}`)
 })
