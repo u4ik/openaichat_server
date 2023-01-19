@@ -4,7 +4,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-
 const token = process.env.API_TOKEN
 const configuration = new Configuration({ apiKey: token });
 const openai = new OpenAIApi(configuration);
@@ -29,18 +28,23 @@ app.post("/message", (req, res) => {
     })
 })
 app.post("/image", async (req, res) => {
-    const response = await openai.createImage({
-        prompt: req.body.prompt,
-        n: 10,
-        size: "1024x1024"
-        // temperature: 0,
-        // top_p: 1,
-        // frequency_penalty: 0,
-        // presence_penalty: 0,
-        // max_tokens: 1024
-    })
-    // console.log(response.data.data[0].url);
-    res.status(200).json({ message: response.data.data })
+    try {
+
+        const response = await openai.createImage({
+            prompt: req.body.prompt,
+            n: 10,
+            size: "1024x1024"
+            // temperature: 0,
+            // top_p: 1,
+            // frequency_penalty: 0,
+            // presence_penalty: 0,
+            // max_tokens: 1024
+        })
+        // console.log(response.data.data[0].url);
+        res.status(200).json({ message: response.data.data })
+    } catch (err) {
+        res.status(500).json({ message: response })
+    }
 })
 
 app.listen(process.env.PORT, () => {
