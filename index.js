@@ -47,10 +47,12 @@ app.post("/image", async (req, res) => {
         // console.log(response.data.data[0].url);
         res.status(200).json({ message: response.data.data })
     } catch (err) {
+        console.log(err);
         res.status(500).json({ message: response })
     }
 })
 
 app.listen(process.env.PORT, () => {
-    console.log(`App is spinning on port ${process.env.PORT}`)
+    // console.log(`App is spinning on port ${process.env.PORT}`)
+    console.log(`App is spinning on port`)
 })
