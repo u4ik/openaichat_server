@@ -4,8 +4,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const LogRocket = require('logrocket');
-LogRocket.init('i4hv58/openaichatserver');
+// const LogRocket = require('logrocket');
+// LogRocket.init('i4hv58/openaichatserver');
 
 
 const token = process.env.API_TOKEN
