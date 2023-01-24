@@ -4,6 +4,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+const LogRocket = require('logrocket');
+LogRocket.init('i4hv58/openaichatserver');
+
+
 const token = process.env.API_TOKEN
 const configuration = new Configuration({ apiKey: token });
 const openai = new OpenAIApi(configuration);
@@ -48,5 +52,5 @@ app.post("/image", async (req, res) => {
 })
 
 app.listen(process.env.PORT, () => {
-    // console.log(`App is spinning on port ${process.env.PORT}`)
+    console.log(`App is spinning on port ${process.env.PORT}`)
 })
