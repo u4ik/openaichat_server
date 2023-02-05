@@ -6,7 +6,7 @@ const fs = require('fs');
 const multer = require('multer');
 const { Configuration, OpenAIApi } = require("openai");
 const sharp = require('sharp');
-
+sharp.cache(false);
 const token = process.env.API_TOKEN
 const configuration = new Configuration({ apiKey: token });
 const openai = new OpenAIApi(configuration);
@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
 const upload = multer({
     storage: storage,
     fileFilter(req, file, cb) {
-        if (!file.originalname.match(/\.(png|jpg|jpeg)$/)) cb(new Error('Please upload an image.'));
+        if (!file.originalname.match(/\.(png|jpg|jpeg|PNG|JPG|JPEG)$/)) cb(new Error('Please upload an image.'));
         cb(undefined, true);
     }
 });
@@ -45,13 +45,10 @@ app.post("/alter_image", upload.single('upload'), async (req, res) => {
     try {
         if (!/^image/.test(req.file.mimetype)) throw new Error("Please upload an Image.");
         if (req.file.size >= 40_000_000) throw new Error("File size is too big, please try it again with a file that is around 4MB");
-
         await sharp(__dirname + '/images/ai.png')
             .resize(500, 500)
             .toFormat('png')
             .toFile(__dirname + '/images/output.png');
-
-
         const compressedFileSize = fs.statSync(__dirname + "/images/output.png").size;
         if (compressedFileSize >= 3_900_000) throw new Error("File size is too big, please try it again with a file that is less than 4MB");
 
