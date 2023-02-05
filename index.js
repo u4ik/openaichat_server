@@ -14,7 +14,7 @@ const openai = new OpenAIApi(configuration);
 const app = express();
 app.use(cors());
 
-const MAX_NUMBER = 1;
+const MAX_NUMBER = 10;
 const IMAGE_SIZE = "256x256";
 // const IMAGE_SIZE = "1024x1024";
 
@@ -43,8 +43,8 @@ const upload = multer({
 
 app.post("/alter_image", upload.single('upload'), async (req, res) => {
     try {
-        if (!/^image/.test(req.file.mimetype)) throw new Error("Please upload an Image.");
-        if (req.file.size >= 40_000_000) throw new Error("File size is too big, please try it again with a file that is around 4MB");
+        // if (!/^image/.test(req.file.mimetype)) throw new Error("Please upload an Image.");
+        // if (req.file.size >= 40_000_000) throw new Error("File size is too big, please try it again with a file that is around 4MB");
         await sharp(__dirname + '/images/ai.png')
             .resize(500, 500)
             .toFormat('png')
