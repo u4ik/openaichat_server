@@ -13,7 +13,6 @@ const openai = new OpenAIApi(configuration);
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
 
 const MAX_NUMBER = 1;
 const IMAGE_SIZE = "256x256";
@@ -83,6 +82,7 @@ app.post("/alter_image", upload.single('upload'), async (req, res) => {
     };
 });
 
+app.use(bodyParser.json());
 app.post("/message", (req, res) => {
     const response = openai.createCompletion({
         model: "text-davinci-003",
