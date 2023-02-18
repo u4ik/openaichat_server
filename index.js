@@ -17,7 +17,7 @@ app.use(cors());
 const MAX_NUMBER = 10;
 const IMAGE_SIZE = "256x256";
 // const IMAGE_SIZE = "1024x1024";
-
+// hi
 const storage = multer.diskStorage({
     destination: __dirname + `/images`,
     limits: {
